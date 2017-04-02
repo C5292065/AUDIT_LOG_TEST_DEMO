@@ -22,7 +22,8 @@
     "winston": "~2.2",
     "body-parser": "~1.15",
     "elementtree": "latest",
-    "google-trends-api": "latest"
+    "google-trends-api": "latest",
+    "yahoo-finance":"latest"
   },
   "description": "",
   "files": [],
