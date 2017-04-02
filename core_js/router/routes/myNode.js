@@ -69,16 +69,15 @@ module.exports = function(server) {
 	app.get("/yahoo_stocks_live", function(req, res) {
 
 		yahooFinance.historical({
-			symbol: 'AAPL',
-			from: '2012-01-01',
-			to: '2012-12-31'
+			symbol: "AAPL",
+			from: "2012-03-01",
+			to: "2012-03-31"
 		}, function (err, quotes) {
 			if (err) {
 					res.type("text/plain").status(500).send("ERROR: " + err.toString());
 					return;
 				} else {
-					var result = JSON.stringify({ Objects: quotes });
-					res.type("application/json").status(200).send(result);
+					res.type("application/json").status(200).send(quotes);
 				}
 		});
 	});

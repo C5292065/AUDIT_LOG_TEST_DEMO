@@ -12,10 +12,6 @@
       "authenticationType": "xsuaa"
     },
     {
-      "source": "/user/(.*)",
-      "destination": "user-backend"
-    },
-    {
       "source": "(.*)(.xsjs)",
       "destination": "core-backend",
       "csrfProtection": false,

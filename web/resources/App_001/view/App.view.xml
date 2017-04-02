@@ -7,7 +7,7 @@
 		<pages>
 			<Page title="{i18n>homePageTitle}">
 				<content>
-					<mvc:XMLView viewName="mfr.app001.view.Page001"/>
+					<mvc:XMLView id="App001" viewName="mfr.app001.view.Page001"/>
 				</content>
 			</Page>
 		</pages>

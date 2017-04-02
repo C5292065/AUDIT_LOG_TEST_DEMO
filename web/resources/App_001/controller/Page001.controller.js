@@ -7,7 +7,7 @@ sap.ui.define([
 		onInit: function(){
 			this.getView().addStyleClass("sapUiSizeCompact"); 
 			
-			var urlStockData = "./node/yahoo_stocks_live";
+			var urlStockData = "/node/yahoo_stocks_live";
 			sap.ui.getCore().getModel().setProperty("/mPath", urlStockData);
 			sap.ui.getCore().getModel().setProperty("/mEntity", "/modelData");
 	    },
@@ -21,8 +21,7 @@ sap.ui.define([
                 contentType : "application/json",
                 url : url,
                 dataType : "json",
-                success : this.controller._buildStockDataTable,
-				error : this.controller._buildStockDataTable
+                success : this.getView().getController()._buildStockDataTable
 	    	});   
 	    	
 	        
@@ -39,8 +38,9 @@ sap.ui.define([
 			var columnList = new sap.m.ColumnListItem();
 			
 			var oModel = new sap.ui.model.json.JSONModel();
-			oModel.setData(data);                      
-			var oMeta = oModel.getServiceMetadata();
+			oModel.setData({modelData: data});
+			
+			var oMeta = Object.keys(JSON.parse(oModel.getJSON()).modelData[0]);
 		
 			if (!oMeta) {
 				sap.m.MessageBox.show("Bad Service Definition ", {
@@ -51,13 +51,13 @@ sap.ui.define([
 				});
 			} else {
 				//Table Column Definitions
-				for (var i = 0; i < oMeta.dataServices.schema[0].entityType[0].property.length; i++) {
-					var property = oMeta.dataServices.schema[0].entityType[0].property[i];
+				for (var i = 0; i < oMeta.length; i++) {
+					var property = oMeta[i];
 					
 					oTable.addColumn(
 						new sap.m.Column({
 							header: new sap.m.Label({
-								text: property.name
+								text: property
 							}),
 							width: "125px"
 						})
@@ -66,9 +66,9 @@ sap.ui.define([
 					columnList.addCell(
 						new sap.m.Text({
 							text: {
-								path: property.name
+								path: property
 							},
-							name: property.name
+							name: property
 						})
 					);
 				}
@@ -76,7 +76,7 @@ sap.ui.define([
 			}	
 			
 			oTable.bindItems({
-				path: mEntity,
+				path: "/modelData",
 				template: columnList
 			});
 		}
