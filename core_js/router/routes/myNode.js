@@ -66,18 +66,18 @@ module.exports = function(server) {
 		]);
 	});
 	
-	app.get("/yahoo_stocks_live", function(req, res) {
-
+	app.get("/yahoo_stocks_live/:symbol/:from/:to", function(req, res) {
+		
 		yahooFinance.historical({
-			symbol: "AAPL",
-			from: "2012-03-01",
-			to: "2012-03-31"
-		}, function (err, quotes) {
-			if (err) {
-					res.type("text/plain").status(500).send("ERROR: " + err.toString());
-					return;
-				} else {
-					res.type("application/json").status(200).send(quotes);
+			symbol: req.params.symbol,
+			from: req.params.from,
+			to: req.params.to
+			}, function (err, quotes) {
+				if (err) {
+						res.type("text/plain").status(500).send("ERROR: " + err.toString());
+						return;
+					} else {
+						res.type("application/json").status(200).send(quotes);
 				}
 		});
 	});

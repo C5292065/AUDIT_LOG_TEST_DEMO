@@ -15,6 +15,14 @@ sap.ui.define([
 	    onGetStockData: function () {
 	    	
 	    	var url = sap.ui.getCore().getModel().getProperty("/mPath");
+	    	var iptSymbol = sap.ui.getCore().byId("__xmlview0--App001").byId("iptSymbol").getValue();
+	    	var iptFrom = sap.ui.getCore().byId("__xmlview0--App001").byId("iptFrom").getValue();
+	    	var iptTo = sap.ui.getCore().byId("__xmlview0--App001").byId("iptTo").getValue();
+	    	
+	    	
+	    	url = url	+ "/" + iptSymbol + "/" 
+	    				+ "/" + iptFrom + "/" 
+	    				+ "/" + iptTo + "/" ;
 	    	
 	    	jQuery.ajax({
 	    		type : "GET",
@@ -58,25 +66,42 @@ sap.ui.define([
 						new sap.m.Column({
 							header: new sap.m.Label({
 								text: property
-							}),
-							width: "125px"
+							})
 						})
 					);
 					
-					columnList.addCell(
-						new sap.m.Text({
-							text: {
-								path: property
-							},
-							name: property
-						})
-					);
+					if(property === "date" ){
+						columnList.addCell(
+							new sap.m.Text({
+								text: {
+									path: property,
+									type: new sap.ui.model.type.Date({
+										source: {
+											pattern: "yyyy-MM-ddTHH:mm:ss.000z"
+										}, 
+										pattern: "dd. MMM yyyy"
+									})
+								},
+								name: property
+							})
+						);
+						
+					}else{
+						columnList.addCell(
+							new sap.m.Text({
+								text: {
+									path: property
+								},
+								name: property
+							})
+						);
+					}
 				}
 				oTable.setModel(oModel);
 			}	
 			
 			oTable.bindItems({
-				path: "/modelData",
+				path: mEntity,
 				template: columnList
 			});
 		}
