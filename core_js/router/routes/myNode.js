@@ -3,6 +3,7 @@
 var express = require("express");
 var async = require("async");
 var yahooFinance = require("yahoo-finance");
+var googleTrends  = require("google-trends-api");
 var WebSocketServer = require("ws").Server;
 
 module.exports = function(server) {
@@ -78,6 +79,20 @@ module.exports = function(server) {
 						return;
 					} else {
 						res.type("application/json").status(200).send(quotes);
+				}
+		});
+	});
+	
+	app.get("/google_queries_live/:query", function(req, res) {
+		
+		googleTrends.relatedQueries({
+			keyword: req.params.query
+			}, function (err, results) {
+				if (err) {
+						res.type("text/plain").status(500).send("ERROR: " + err.toString());
+						return;
+					} else {
+						res.type("application/json").status(200).send(results);
 				}
 		});
 	});
