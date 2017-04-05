@@ -23,7 +23,8 @@
     "body-parser": "~1.15",
     "elementtree": "latest",
     "google-trends-api": "latest",
-    "yahoo-finance":"latest"
+    "yahoo-finance": "latest",
+    "yahoo-weather": "latest"
   },
   "description": "",
   "files": [],

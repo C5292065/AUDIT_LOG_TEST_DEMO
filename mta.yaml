@@ -73,7 +73,7 @@ resources:
  - name: hdi-container
    parameters:
       config:
-         schema: DEV002
+         schema: DEV002_CORE_DB
    properties:
       hdi-container-name: ${service-name}
    type: com.sap.xs.hdi-container
@@ -95,7 +95,7 @@ resources:
  - name: user-container
    parameters:
       config:
-         schema: DEV002_USER
+         schema: DEV002_USER_DB
    properties:
       user-container-name: ${service-name}
    type: com.sap.xs.hdi-container

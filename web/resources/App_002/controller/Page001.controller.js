@@ -39,7 +39,7 @@ sap.ui.define([
 			var columnList = new sap.m.ColumnListItem();
 			
 			var oModel = new sap.ui.model.json.JSONModel();
-			oModel.setData({modelData: data});
+			oModel.setData({modelData: data.default.rankedList[0].rankedKeyword});
 			
 			var oMeta = Object.keys(JSON.parse(oModel.getJSON()).modelData[0]);
 		
@@ -63,32 +63,16 @@ sap.ui.define([
 						})
 					);
 					
-					if(property === "date" ){
-						columnList.addCell(
-							new sap.m.Text({
-								text: {
-									path: property,
-									type: new sap.ui.model.type.Date({
-										source: {
-											pattern: "yyyy-MM-ddTHH:mm:ss.000z"
-										}, 
-										pattern: "dd. MMM yyyy"
-									})
-								},
-								name: property
-							})
-						);
-						
-					}else{
-						columnList.addCell(
-							new sap.m.Text({
-								text: {
-									path: property
-								},
-								name: property
-							})
-						);
-					}
+					
+					columnList.addCell(
+						new sap.m.Text({
+							text: {
+								path: property
+							},
+							name: property
+						})
+					);
+					
 				}
 				oTable.setModel(oModel);
 			}	
