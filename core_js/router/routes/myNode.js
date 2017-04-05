@@ -81,9 +81,11 @@ module.exports = function(server) {
 					}, function (err, quotes) {
 						
 						var results = [];
-						for (var i=0; i<JSON.parse(JSON.stringify(quotes)).length; i++ ){
-							results.push(JSON.parse(JSON.stringify(quotes))[i]);
+						
+						for(var x in quotes){
+						  results.push(JSON.stringify([JSON.parse(JSON.stringify(quotes[x]))]));
 						}
+						
 						callback(null, err, results);
 					}
 				);
