@@ -76,14 +76,23 @@ module.exports = function(server) {
 			function getStockData(callback){
 				yahooFinance.historical({
 						symbol: "AAPL",
-						from: "2017-01-01",
+						from: "2000-01-01",
 						to: "2017-01-30"
 					}, function (err, quotes) {
 						
 						var results = [];
 						
 						for(var x in quotes){
-						  results.push(JSON.stringify([JSON.parse(JSON.stringify(quotes[x]))]));
+							results.push([
+						  		JSON.stringify(quotes[x].adjClose),
+						  		JSON.stringify(quotes[x].close),
+						  		JSON.stringify(quotes[x].date),
+						  		JSON.stringify(quotes[x].high),
+						  		JSON.stringify(quotes[x].low),
+						  		JSON.stringify(quotes[x].open),
+						  		JSON.stringify(quotes[x].symbol),
+						  		JSON.stringify(quotes[x].volume)
+							]);
 						}
 						
 						callback(null, err, results);
