@@ -24,7 +24,8 @@
     "elementtree": "latest",
     "google-trends-api": "latest",
     "yahoo-finance": "latest",
-    "yahoo-weather": "latest"
+    "yahoo-weather": "latest",
+    "flight-tracker": "latest"
   },
   "description": "",
   "files": [],

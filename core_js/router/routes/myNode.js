@@ -4,6 +4,7 @@ var express 		= require("express");
 var async			= require("async");
 var yahooFinance	= require("yahoo-finance");
 var googleTrends	= require("google-trends-api");
+var flightTracker = require("flight-tracker");
 var WebSocketServer = require("ws").Server;
 
 module.exports = function(server) {
@@ -157,6 +158,39 @@ module.exports = function(server) {
 				}
 		});
 	});
+	
+	
+	app.get("/flight_tracker", function(req, res) {
+		
+		flightTracker({
+		    // Where and when are you flying from? 
+		    start: ["Munich", new Date(2017, 4, 6, 20, 15)]
+		 
+		    // Where and when are you flying to? 
+		  , end: ["Heathrow, London", new Date(2017, 4, 6, 21, 15)]
+		 
+		    ///// The following are the defaults. You don't 
+		    ///// have to provide them as long you are happy with them. 
+		 
+		    // How often do you want to update the output? 
+		  , interval: 50
+		 
+		    // Width of the stream 
+		  , width: process.stdout.columns || 60
+		 
+		    // By default, show two decimals 
+		  , decimals: 20
+		 
+		    // By default, use the standard out stream of the current process 
+		  , stream: process.stdout
+		}, function (err){
+			if (err) {
+				res.type("text/plain").status(500).send("ERROR: " + err.toString());
+				return;
+			}
+		});
+	});
+
 
 
 	return app;
