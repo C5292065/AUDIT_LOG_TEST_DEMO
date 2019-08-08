@@ -1,0 +1,51 @@
+ID: Exide_BMU_Dashboard1
+_schema-version: '2.1'
+description: BMU Dashboard for Exide1
+version: 0.0.17
+modules:
+  - name: TEST_BMS_NODE
+    type: nodejs
+    path: TEST_BMS_NODE
+    provides:
+      - name: TEST_BMS_NODE_api
+        properties:
+          url: '${default-url}'
+    requires:
+      - name: hdi_TEST_BMS_HANA
+      - name: TEST_BMS_HANA
+      - name: ibms_tester1
+  - name: TEST_IBMS_UI5
+    type: html5
+    path: TEST_IBMS_UI5
+    parameters:
+      disk-quota: 256M
+      memory: 256M
+    build-parameters:
+      builder: grunt
+    requires:
+      - name: ibms_tester1
+      - name: TEST_BMS_NODE_api
+        group: destinations
+        properties:
+          name: test_bms_tester
+          url: '~{url}'
+          forwardAuthToken: true
+  - name: TEST_BMS_HANA
+    type: hdb
+    path: TEST_BMS_HANA
+    requires:
+      - name: hdi_TEST_BMS_HANA
+resources:
+  - name: hdi_TEST_BMS_HANA
+    parameters:
+      config:
+        schema: TEST_SCHEMA1
+    properties:
+      hdi-container-name: '${service-name}'
+    type: com.sap.xs.hdi-container
+  - name: ibms_tester1
+    type: com.sap.xs.uaa
+    parameters:
+      path: ./xs-security.json
+      service-plan: application
+      service: xsuaa

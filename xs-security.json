@@ -1,0 +1,27 @@
+{
+	"xsappname": "bmurepotester1",
+	"tenant-mode": "dedicated",
+	"description": "XS Security Definitions1",
+	"scopes": [{
+		"name": "$XSAPPNAME.tester1",
+		"description": "Device Register tester1"
+	}],
+    
+	"attributes": [{
+		"name": "DEVICE",
+		"description": "DEVICE",
+		"valueType": "s"
+	}],
+    
+	"role-templates": [{
+		"name": "iBMS_RND_tester1",
+		"description": "RND Display tester1",
+		"scope-references": [
+			"$XSAPPNAME.tester1"
+		],
+		"attribute-references": [
+			"DEVICE"
+		]
+	}
+	]
+}

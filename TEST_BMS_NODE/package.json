@@ -1,0 +1,26 @@
+{
+  "dependencies": {
+    "@sap/xsenv": "^1.2.9",
+    "@sap/xssec": "latest",
+    "@sap/xsjs" : "latest",
+    "@sap/hdbext": "latest",
+    "@sap/logging": "latest",
+    "express" : "~4.15",
+    "passport" : "~0.3.2"
+  },
+  "description": "my description",
+  "devDependencies": {
+    "@sap/xsjs-test": "^3.0.2"
+  },
+  "files": [],
+  "main": "server.js",
+  "name": "TEST_BMS_NODE",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node testrun.js"
+  },
+  "engines": {
+    "node": "8.x"
+  },
+  "version": "1.0.0"
+}

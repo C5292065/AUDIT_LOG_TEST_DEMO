@@ -1,0 +1,15 @@
+FUNCTION "test1.TEST_BMS_HANA::testtf"( )
+       RETURNS TABLE (IOT_DEVICE_ID nvarchar(100), IOT_SENSOR_ID nvarchar(100)) 
+       LANGUAGE SQLSCRIPT 
+       SQL SECURITY INVOKER AS 
+BEGIN 
+declare y nvarchar(10);
+x=select SESSION_CONTEXT('XS_DEVICE') as ex from "test1.TEST_BMS_HANA::DUMMY";
+y := :x.ex[1];
+--return select IOT_DEVICE_ID, IOT_SENSOR_ID from "test1.TEST_BMS_HANA::td.T_IOT_SENSOR_DATA" where IOT_DEVICE_ID in (select SESSION_CONTEXT('XS_DEVICE') as ex from "test1.TEST_BMS_HANA::DUMMY");--in (REPLACE(REPLACE(:y, '[\"' , ''), '\"]' , ''));
+return select IOT_DEVICE_ID, IOT_SENSOR_ID from "test1.TEST_BMS_HANA::td.T_IOT_SENSOR_DATA" where IOT_DEVICE_ID =  (REPLACE(REPLACE(:y, '"' , ''), '"' , ''));
+
+
+--return select SESSION_CONTEXT('XS_DEVICE') as ex from "test1.TEST_BMS_HANA::DUMMY";
+
+END;

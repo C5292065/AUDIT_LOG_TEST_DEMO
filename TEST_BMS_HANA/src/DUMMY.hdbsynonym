@@ -1,0 +1,8 @@
+{
+  "test1.TEST_BMS_HANA::DUMMY": {
+    "target": {
+      "object": "DUMMY",
+      "schema": "SYS"
+    }
+  }
+}

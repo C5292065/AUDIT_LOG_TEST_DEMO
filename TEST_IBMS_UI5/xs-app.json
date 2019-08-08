@@ -1,0 +1,20 @@
+{
+  "welcomeFile": "/TEST_IBMS_UI5/index.html",
+  "authenticationMethod": "route",
+  "logout": {
+    "logoutEndpoint": "/do/logout"
+  },
+  "routes": [
+    {
+      "source": "^/TEST_IBMS_UI5/(.*)$",
+      "target": "$1",
+      "localDir": "webapp"
+    }, {
+		"source": "^/device_test/(.*)$",
+		"target": "$1",
+		"destination": "test_bms_tester",
+		"csrfProtection": false,
+        "authenticationType": "xsuaa"
+	}
+  ]
+}
