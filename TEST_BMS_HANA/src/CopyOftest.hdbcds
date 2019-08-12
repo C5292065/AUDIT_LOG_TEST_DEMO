@@ -1,6 +1,6 @@
 namespace test1.TEST_BMS_HANA;
 
-context td {
+context td1 {
 
     /*@@layout{"layoutInfo":{"x":-352,"y":-109.5}}*/
     entity T_IOT_SENSOR_DATA {

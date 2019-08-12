@@ -4,7 +4,8 @@
     "@sap/xssec": "latest",
     "@sap/xsjs" : "latest",
     "@sap/hdbext": "latest",
-    "@sap/logging": "latest",
+    "@sap/logging": "^3.0.0",
+    "@sap/audit-logging": "2.2.4",
     "express" : "~4.15",
     "passport" : "~0.3.2"
   },

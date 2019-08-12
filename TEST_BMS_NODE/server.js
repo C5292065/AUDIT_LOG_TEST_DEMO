@@ -4,20 +4,26 @@ var https = require("https");
 var express = require("express");
 var xsenv = require("@sap/xsenv");
 var hdbext = require("@sap/hdbext");
-const passport = require('passport');
-const JWTStrategy = require('@sap/xssec').JWTStrategy;
+var logging = require("@sap/logging");
+var appContext = logging.createAppContext();
+
+
+
+// const passport = require('passport');
+// const JWTStrategy = require('@sap/xssec').JWTStrategy;
 var port  = process.env.PORT || 3000;
-const app = express();
+var app = express();
 
-var services = xsenv.getServices({
-	uaa: "ibms_tester1"
-});
+// var services = xsenv.getServices({
+// 	uaa: "ibms_tester1"
+// });
 
-passport.use(new JWTStrategy(services.uaa));
-app.use(passport.initialize());
-app.use(passport.authenticate('JWT', {
-	session: false
-}));
+// passport.use(new JWTStrategy(services.uaa));
+
+// app.use(passport.initialize());
+// app.use(passport.authenticate('JWT', {
+// 	session: false
+// }));
 
 var hanaOptions = xsenv.getServices({
 	hana: {
@@ -25,47 +31,56 @@ var hanaOptions = xsenv.getServices({
 	}
 });
 
+app.use(logging.expressMiddleware(appContext));
+
 app.use(
 	hdbext.middleware(hanaOptions.hana)
 );
 
-app.get("/vvp", function(req, res) {
-if (req.authInfo){
-var client = req.db;
-client.prepare(
-//	"select SESSION_CONTEXT('XS_DEVICE'), SESSION_CONTEXT('APPLICATIONUSER'),CURRENT_USER , SESSION_CONTEXT('APPLICATION') from DUMMY",
-	"select * from \"test1.TEST_BMS_HANA::testtf\"()"/*where IOT_DEVICE_ID = SESSION_CONTEXT('XS_DEVICE')"*/,
-	function(err, statement) {
-		if (err) {			
-		/*	res.type("text/plain").status(500).send("ERROR: " + err.toString());*/res.send("failed 1");	return;	}
-	statement.exec([],
-		function(err, results) {
-			if (err) {			
-		/*		res.type("text/plain").status(500).send("ERROR: " + err.toString());*/res.send("failed 2");	return;						
 
-		} else {	
+app.use('/logging',require('./route/logging'));
+app.use('/audit-logging',require('./route/audit-logging'));
+
+
+
+// app.get("/vvp", function(req, res) {
+// {
+// var client = req.db;
+// client.prepare(
+// //	"select SESSION_CONTEXT('XS_DEVICE'), SESSION_CONTEXT('APPLICATIONUSER'),CURRENT_USER , SESSION_CONTEXT('APPLICATION') from DUMMY",
+// 	"select * from \"test1.TEST_BMS_HANA::testtf\"()"/*where IOT_DEVICE_ID = SESSION_CONTEXT('XS_DEVICE')"*/,
+// 	function(err, statement) {
+// 		if (err) {			
+// 		/*	res.type("text/plain").status(500).send("ERROR: " + err.toString());*/res.send("failed 1");	return;	}
+// 	statement.exec([],
+// 		function(err, results) {
+// 			if (err) {			
+// 		/*		res.type("text/plain").status(500).send("ERROR: " + err.toString());*/res.send("failed 2");	return;						
+
+// 		} else {	
 			
-			var scope = req.authInfo.xsappname + ".tester1";
+// 		// 	var scope = req.authInfo.xsappname + ".tester1";
 
 	
-		res.send(req.authInfo + "0" + scope);
-		if (req.authInfo.checkScope(scope)) {
-			/*res.send(req.authInfo + "1" + scope);*/
-			var result = JSON.stringify({ Objects: results});					
-			res.type("application/json").status(200).send(result);
+// 		// res.send(req.authInfo + "0" + scope);
+// 		// if (req.authInfo.checkScope(scope)) {
+// 			/*res.send(req.authInfo + "1" + scope);*/
+// 			// var result = JSON.stringify({ Objects: results});					
+// 			// res.type("application/json").status(200).send(result);
+// 			res.send(results);
 			
-		}
-	else {
-		return;
-	}
+// 		// }
+// 	// else {
+// 	// 	return;
+// 	// }
 	
 		
-	}});
+// 	}});
 			
-		});
+// 		});
 
-};
-});
+// };
+// });
 
 
 
