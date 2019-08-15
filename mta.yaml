@@ -13,7 +13,7 @@ modules:
     requires:
       - name: hdi_TEST_BMS_HANA
       - name: TEST_BMS_HANA
-      - name: auditlog-demo
+      - name: auditlog-demo2
   - name: TEST_IBMS_UI5
     type: html5
     path: TEST_IBMS_UI5
@@ -44,7 +44,7 @@ resources:
     properties:
       hdi-container-name: '${service-name}'
     type: com.sap.xs.hdi-container
-  - name: auditlog-demo
+  - name: auditlog-demo2
     type: org.cloudfoundry.managed-service
     parameters:
       service: auditlog
