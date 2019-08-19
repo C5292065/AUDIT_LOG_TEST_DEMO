@@ -3,6 +3,7 @@
     "@sap/xsenv": "^1.2.9",
     "@sap/xssec": "latest",
     "@sap/xsjs" : "latest",
+    "@sap/request" : "latest",
     "@sap/hdbext": "latest",
     "@sap/logging": "^3.0.0",
     "@sap/audit-logging": "2.2.4",

@@ -40,6 +40,7 @@ app.use(
 
 app.use('/logging',require('./route/logging'));
 app.use('/audit-logging',require('./route/audit-logging'));
+app.use('/job_log',require('./route/job_log_test'));
 
 
 
