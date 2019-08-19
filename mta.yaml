@@ -11,9 +11,9 @@ modules:
         properties:
           url: '${default-url}'
     requires:
-      - name: hdi_TEST_BMS_HANA
+      - name: hdi_TEST_BMS_HANA1
       - name: TEST_BMS_HANA
-      - name: auditlog-demo2
+      - name: auditlog-demo5
   - name: TEST_IBMS_UI5
     type: html5
     path: TEST_IBMS_UI5
@@ -30,21 +30,21 @@ modules:
           url: '~{url}'
           forwardAuthToken: true
       - name: TEST_BMS_HANA
-      - name: hdi_TEST_BMS_HANA
+      - name: hdi_TEST_BMS_HANA1
   - name: TEST_BMS_HANA
     type: hdb
     path: TEST_BMS_HANA
     requires:
-      - name: hdi_TEST_BMS_HANA
+      - name: hdi_TEST_BMS_HANA1
 resources:
-  - name: hdi_TEST_BMS_HANA
+  - name: hdi_TEST_BMS_HANA1
     parameters:
       config:
-        schema: TEST_SCHEMA1
+        schema: TEST_SCHEMA11
     properties:
       hdi-container-name: '${service-name}'
     type: com.sap.xs.hdi-container
-  - name: auditlog-demo2
+  - name: auditlog-demo5
     type: org.cloudfoundry.managed-service
     parameters:
       service: auditlog
