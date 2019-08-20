@@ -11,4 +11,11 @@ modules:
           url: '${default-url}'
     requires:
       - name: core-js-service
-resources: null
+      - name: EXTERNAL_HTTP
+resources:
+  - name: EXTERNAL_HTTP
+    type: org.cloudfoundry.existing-service
+    parameters:
+      service-name: EXTERNAL_HTTP
+    properties:
+      EXTERNAL_HTTP_SERVICE: '${service-name}'

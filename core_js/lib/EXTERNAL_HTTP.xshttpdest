@@ -1,0 +1,8 @@
+description = "Testing log"; 
+host = "dewdfgld09256.wdf.sap.corp"; 
+port = 51078;
+useProxy = false; 
+useSSL = true; 
+sslHostCheck = false;
+authType = none; 
+timeout = 10000;
