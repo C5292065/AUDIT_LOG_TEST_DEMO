@@ -2,15 +2,16 @@
 "use strict";
 var express 		= require("express");
 
-
 module.exports = function() {
 	var app = express.Router();
 
 	app.get("/", function(req, res) {
 		
-		var logger = req.loggingContext.getLogger('/Application');
-  //var tracer = req.loggingContext.getTracer(__filename);
-			logger.error('this is by jinal from node app');
+		 var logger = req.loggingContext.getLogger('/Application');
+  //var tracer = req.loggingContext.getTracer('/Application');
+			logger.error(req.query.msg);
+			logger.info(req.query.msg);
+			// req.loggingContext.getLogger().info(req.query.msg);
 			res.send('success');
 	});
 
