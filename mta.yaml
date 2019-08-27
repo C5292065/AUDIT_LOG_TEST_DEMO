@@ -11,9 +11,9 @@ modules:
         properties:
           url: '${default-url}'
     requires:
-      - name: hdi_TEST_BMS_HANA1
+      - name: hdi_TEST_BMS_HANA11
       - name: TEST_BMS_HANA
-      - name: auditlog-demo5
+      - name: auditlog-demo9
   - name: TEST_IBMS_UI5
     type: html5
     path: TEST_IBMS_UI5
@@ -30,22 +30,46 @@ modules:
           url: '~{url}'
           forwardAuthToken: true
       - name: TEST_BMS_HANA
-      - name: hdi_TEST_BMS_HANA1
+      - name: hdi_TEST_BMS_HANA11
   - name: TEST_BMS_HANA
     type: hdb
     path: TEST_BMS_HANA
     requires:
-      - name: hdi_TEST_BMS_HANA1
+      - name: hdi_TEST_BMS_HANA11
+  - name: TEST_BMS_XSJS
+    type: nodejs
+    path: TEST_BMS_XSJS
+    requires:
+      - name: jobScheduler
+      - name: EXTERNAL_HTTP1
+  - name: TEST_BMS_NODE1
+    type: nodejs
+    path: TEST_BMS_NODE1
+    requires:
+      - name: TEST_BMS_NODE_api
+        group: destinations
+        properties:
+          name: backend
+          url: ~{url}
+          forwardAuthToken: true
 resources:
-  - name: hdi_TEST_BMS_HANA1
+  - name: hdi_TEST_BMS_HANA11
     parameters:
       config:
-        schema: TEST_SCHEMA11
+        schema: TEST_SCHEMA111
     properties:
       hdi-container-name: '${service-name}'
     type: com.sap.xs.hdi-container
-  - name: auditlog-demo5
+  - name: auditlog-demo9
     type: org.cloudfoundry.managed-service
     parameters:
       service: auditlog
       service-plan: free
+  - name: jobScheduler
+    type: com.sap.xs.job-scheduler
+  - name: EXTERNAL_HTTP1
+    type: org.cloudfoundry.existing-service
+    parameters:
+      service-name: EXTERNAL_HTTP1
+    properties:
+      EXTERNAL_HTTP_SERVICE: '${service-name}'
