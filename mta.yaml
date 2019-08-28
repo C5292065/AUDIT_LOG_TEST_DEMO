@@ -42,6 +42,12 @@ modules:
     requires:
       - name: jobScheduler
       - name: EXTERNAL_HTTP1
+      - name: TEST_BMS_NODE_api
+        group: destinations
+        properties:
+          name: backend
+          url: ~{url}
+          forwardAuthToken: true
   - name: TEST_BMS_NODE1
     type: nodejs
     path: TEST_BMS_NODE1
