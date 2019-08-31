@@ -14,23 +14,7 @@ modules:
       - name: hdi_TEST_BMS_HANA11
       - name: TEST_BMS_HANA
       - name: auditlog-demo9
-  - name: TEST_IBMS_UI5
-    type: html5
-    path: TEST_IBMS_UI5
-    parameters:
-      disk-quota: 256M
-      memory: 256M
-    build-parameters:
-      builder: grunt
-    requires:
-      - name: TEST_BMS_NODE_api
-        group: destinations
-        properties:
-          name: test_bms_tester
-          url: '~{url}'
-          forwardAuthToken: true
-      - name: TEST_BMS_HANA
-      - name: hdi_TEST_BMS_HANA11
+      - name: ibms_tester1
   - name: TEST_BMS_HANA
     type: hdb
     path: TEST_BMS_HANA
@@ -39,25 +23,58 @@ modules:
   - name: TEST_BMS_XSJS
     type: nodejs
     path: TEST_BMS_XSJS
+    provides:
+      - name: TEST_BMS_XSJS_api
+        properties:
+          url2: '${default-url}'    
     requires:
       - name: jobScheduler
       - name: EXTERNAL_HTTP1
+      - name: ibms_tester1
       - name: TEST_BMS_NODE_api
         group: destinations
         properties:
           name: backend
-          url: ~{url}
+          url: '~{url}'
           forwardAuthToken: true
   - name: TEST_BMS_NODE1
     type: nodejs
     path: TEST_BMS_NODE1
+    provides:
+      - name: TEST_BMS_NODE1_api
+        properties:
+          url1: '${default-url}'
     requires:
+      - name: ibms_tester1
       - name: TEST_BMS_NODE_api
         group: destinations
         properties:
           name: backend
-          url: ~{url}
+          url: '~{url}'
           forwardAuthToken: true
+  - name: BMS_WEB
+    type: html5
+    path: BMS_WEB
+    requires:
+      - name: ibms_tester1
+      - name: TEST_BMS_NODE_api
+        group: destinations
+        properties:
+          name: backend
+          url: '~{url}'
+          forwardAuthToken: true
+      - name: TEST_BMS_NODE1_api
+        group: destinations
+        properties:
+          name: backend1
+          url: '~{url1}'
+          forwardAuthToken: true
+      - name: TEST_BMS_XSJS_api
+        group: destinations
+        properties:
+          name: backend2
+          url: '~{url2}'
+          forwardAuthToken: true           
 resources:
   - name: hdi_TEST_BMS_HANA11
     parameters:
@@ -79,3 +96,9 @@ resources:
       service-name: EXTERNAL_HTTP1
     properties:
       EXTERNAL_HTTP_SERVICE: '${service-name}'
+  - name: ibms_tester1
+    type: com.sap.xs.uaa-space
+    parameters:
+      path: xs-security.json
+      service-plan: application
+      service: xsuaa      

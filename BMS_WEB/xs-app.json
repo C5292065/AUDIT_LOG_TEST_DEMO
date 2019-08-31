@@ -1,0 +1,31 @@
+{
+	"welcomeFile": "index.html",
+	"authenticationMethod": "route",
+	"logout": {
+		"logoutPage": "/webapp/index.html",
+		"logoutEndpoint": "/my/logout"
+	},
+	"routes": [{
+		"source": "^/log/(.*)$",
+		"target": "$1",
+		"destination": "backend",
+		"csrfProtection": false,
+        "authenticationType": "xsuaa"
+	}, {
+		"source": "^/depen/(.*)$",
+		"target": "$1",
+		"destination": "backend1",
+		"csrfProtection": false,
+        "authenticationType": "xsuaa"
+	}, {
+		"source": "^/xsjs/(.*)$",
+		"target": "$1",
+		"destination": "backend2",
+		"csrfProtection": false,
+        "authenticationType": "xsuaa"
+	}, {
+      "source": "^/(.*)$",
+      "localDir": "resources"
+    }
+  ]
+}

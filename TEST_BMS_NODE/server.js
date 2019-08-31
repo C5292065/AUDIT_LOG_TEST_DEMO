@@ -9,21 +9,23 @@ var appContext = logging.createAppContext();
 
 
 
-// const passport = require('passport');
-// const JWTStrategy = require('@sap/xssec').JWTStrategy;
+var passport = require('passport');
+var JWTStrategy = require('@sap/xssec').JWTStrategy;
 var port  = process.env.PORT || 3000;
 var app = express();
 
-// var services = xsenv.getServices({
-// 	uaa: "ibms_tester1"
-// });
+var services = xsenv.getServices({
+	uaa: {
+		tag: "xsuaa"
+	}
+});
 
-// passport.use(new JWTStrategy(services.uaa));
+passport.use(new JWTStrategy(services.uaa));
 
-// app.use(passport.initialize());
-// app.use(passport.authenticate('JWT', {
-// 	session: false
-// }));
+app.use(passport.initialize());
+app.use(passport.authenticate('JWT', {
+	session: false
+}));
 
 var hanaOptions = xsenv.getServices({
 	hana: {

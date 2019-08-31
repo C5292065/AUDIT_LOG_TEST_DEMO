@@ -1,8 +1,10 @@
 {
   "dependencies": {
   	"@sap/xsenv": "^1.2.9",
+  	"@sap/xssec": "latest",
   	"express": "latest",
-  	"request": "latest"
+  	"request": "latest",
+  	"passport" : "~0.3.2"
   },
   "description": "my description",
   "devDependencies": {

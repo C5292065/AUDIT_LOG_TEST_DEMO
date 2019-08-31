@@ -3,7 +3,7 @@ sap.ui.define([
 ], function (Controller) {
 	"use strict";
 
-	return Controller.extend("TEST_IBMS_UI5.TEST_IBMS_UI5.controller.View1", {
+	return Controller.extend("com.sap.BMS_WEB.controller.Main", {
 		onInit: function () {
 
 		}
